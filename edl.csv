@@ -1,0 +1,8 @@
+start,end,cam,action,text
+0,5,camera3_wide_back.mp4,fadein,title
+5,25,camera1_front_left.mp4,cut,
+25,45,camera4_side_angle.mp4,crossfade,
+45,70,camera2_front_right.mp4,cut,subtitle
+70,90,camera3_wide_back.mp4,cut,
+90,115,camera1_front_left.mp4,cut,
+115,120,camera3_wide_back.mp4,fadeout,credit
