@@ -1,6 +1,7 @@
 import os
 
 os.environ["IMAGEMAGICK_BINARY"] = r"C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\magick.exe"
+
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip, concatenate_videoclips
 
 def build_graduation_video():
@@ -64,6 +65,27 @@ def build_graduation_video():
             clip = clip.crossfadein(1.0)
 
         processed_clips.append(clip)
+
+    final_video = concatenate_videoclips(processed_clips, method="compose")
+
+    final_duration = edl[-1]["end"]
+    final_audio = main_audio.subclip(0, final_duration)
+    
+    final_sequence = final_video.set_audio(final_audio)
+
+    output_filename = "BTIS3053_2026B_project_output.mp4"
+    final_sequence.write_videofile(
+        output_filename,
+        fps=30,
+        codec="libx264",
+        audio_codec="aac",
+        threads=4
+    )
+
+    for cam in cameras.values():
+        cam.close()
+    final_video.close()
+    final_sequence.close()
 
 if __name__ == "__main__":
     build_graduation_video()
