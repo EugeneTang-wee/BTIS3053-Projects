@@ -41,6 +41,28 @@ def build_graduation_video():
         
         clip = cameras[cam_name].subclip(local_start, local_end).without_audio()
         
+        if item["text"] == "title":
+            txt_clip = TextClip("Kindergarten Graduation 2026", fontsize=60, color='white', font='Arial-Bold')
+            txt_clip = txt_clip.set_position('center').set_duration(clip.duration)
+            clip = CompositeVideoClip([clip, txt_clip])
+            
+        elif item["text"] == "subtitle":
+            txt_clip = TextClip("Certificate Presentation", fontsize=35, color='yellow', font='Arial')
+            txt_clip = txt_clip.set_position(('center', 'bottom')).set_duration(clip.duration)
+            clip = CompositeVideoClip([clip, txt_clip])
+            
+        elif item["text"] == "credit":
+            txt_clip = TextClip("Thank You for Watching", fontsize=50, color='white', font='Arial-Bold')
+            txt_clip = txt_clip.set_position('center').set_duration(clip.duration)
+            clip = CompositeVideoClip([clip, txt_clip])
+
+        if item["action"] == "fadein":
+            clip = clip.fadein(1.0)
+        elif item["action"] == "fadeout":
+            clip = clip.fadeout(1.0)
+        elif item["action"] == "crossfade":
+            clip = clip.crossfadein(1.0)
+
         processed_clips.append(clip)
 
 if __name__ == "__main__":
